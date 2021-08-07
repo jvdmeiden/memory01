@@ -1,0 +1,30 @@
+html, body { margin:0; padding:0; overflow:hidden }
+table, th, td {
+ border: outset;
+}
+svg { position:fixed; top:0; left:0; height:100%; width:100%; z-index: -1 }
+.menu {
+ width: 400px;
+ max-width: 90%;
+ margin-left: 2%;
+ margin-top: 2%;
+}
+.flex-container {
+ display: flex;
+ background-color: #e0e0e0;
+}
+.header {
+ font-weight: bold;
+ background-color: #e0e0e0;
+}
+.input {
+ background-color: #fafafa;
+ width: 100%;
+}
+.form {
+ width: 400px;
+ margin: auto;
+ border: 3px solid #222222;
+ border-radius: 5px;
+}
+
