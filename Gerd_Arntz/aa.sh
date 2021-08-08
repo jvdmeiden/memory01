@@ -17,17 +17,12 @@ done
 
 echo "<h1>Images</h1>" >> index.html
 echo "<div style=\"width: 100vw; display: flex; flex-direction: row;  flex-wrap: wrap; \">" >> index.html
-for img in *.jpg *.JPG *.png *.PNG *.bmp *.BMP *.jpeg *.JPEG *.gif *.GIF; do
-    if [ ! -f "${img}" ]; then
-        continue
-    fi
-    convert -auto-orient -scale 640 $img thumb-$img
+for img in *.png ; do
+    echo $img
+    img=`echo "$img" | cut -d'.' -f1`
      echo "<div style=\"width: 33vw; height: 33vh; \">" >> index.html
          echo "<div style=\"width: 100%; height: 90%;\">" >> index.html
-            echo "<img style=\"height: 100%;\" src=\"thumb-$img\"></a>" >> index.html
-         echo "</div>" >> index.html
-         echo "<div style=\"width: 100%; height: 10%;\">" >> index.html
-            echo "<a href=\"$img\">$img</a>" >> index.html
+            echo "<img style=\"height: 100%;\" src=\"$img.png\"></a>" >> index.html
          echo "</div>" >> index.html
      echo "</div>" >> index.html
 done
