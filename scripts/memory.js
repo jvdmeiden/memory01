@@ -11,8 +11,8 @@ notice is preserved.
 var state = [];
 var images = ['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59'];
 var landscape;
-var fNum = 6;
-var fSize
+var fNum = 8;
+var fSize;
 
 function init() {
   window.maxX=window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
@@ -43,7 +43,7 @@ function init() {
         newRect.setAttribute("y",(yDelta+j*(fSize+5))+5);
         newRect.setAttribute("width",fSize);
         newRect.setAttribute("height",fSize);
-        newRect.setAttribute("color","grey");
+        newRect.setAttribute("style","fill:grey");
         newRect.setAttribute("id",i+"-"+j);
         newRect.setAttribute("onclick","onClick(evt)");
         svgObject.appendChild(newRect);
@@ -87,5 +87,28 @@ function init() {
 }
 
 function onClick(evt){
-  console.log("hopla");
+  sqrId=evt.target.getAttribute("id");
+  coords=sqrId.split("-");
+  for(var i=0; i<coords.length; i++) { coords[i] = +coords[i]; }
+  console.log(coords);
+  evt.target.setAttributeNS(null,"style","fill:red");
+  newElement = document.createElement('image');
+  newElement.setAttribute('href','orange');
+  newElement.setAttribute('width','200');
+  newElement.setAttribute('height','200');
+  document.getElementById('svg-drawing').appendChild(newElement);
+
+  // <image href="mdn_logo_only_color.png" height="200" width="200"/>
+  // svgObject=document.getElementById("svg1");;
+  // sqr=svgObject.getElementById(sqrId);
+  // sqr.setAttributeNS(null,"style","fill:red");
+  // sqr.color="blue";
+  // svgObject=document.getElementById("svg1");
+  // svgObject.evt.target.setAttribute("color","red");
+  // window.card=document.getElementById(id);
+  // card.color="blue";
+  // console.log(card);
+  // console.log(evt.target);
+  // setTimeout(2000);
+  // console.log(sqrId);
 }
