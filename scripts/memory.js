@@ -87,16 +87,23 @@ function init() {
 }
 
 function onClick(evt){
+  svgObject=document.getElementById("svg1");
   sqrId=evt.target.getAttribute("id");
   coords=sqrId.split("-");
   for(var i=0; i<coords.length; i++) { coords[i] = +coords[i]; }
   console.log(coords);
-  evt.target.setAttributeNS(null,"style","fill:red");
-  newElement = document.createElement('image');
-  newElement.setAttribute('href','orange');
-  newElement.setAttribute('width','200');
-  newElement.setAttribute('height','200');
-  document.getElementById('svg-drawing').appendChild(newElement);
+  //  <image href="mdn_logo_only_color.png" height="200" width="200"/>
+  // evt.target.setAttributeNS(null,"style","fill:red");
+  evt.target.removeAttribute("style");
+  newElement = document.createElementNS(null,'image');
+  // newElement.setAttribute('href','/JB/02.jpg');
+  newElement.setAttributeNS(null,'href',"http://192.168.50.220:8081/JB/02.jpg");
+  newElement.setAttributeNS(null,'id',"img-"+sqrId);
+  newElement.setAttributeNS(null,'x',evt.target.getAttribute("x"));
+  newElement.setAttributeNS(null,'y',evt.target.getAttribute("y"));
+  newElement.setAttributeNS(null,'width',fSize);
+  newElement.setAttributeNS(null,'height',fSize);
+  svgObject.appendChild(newElement);
 
   // <image href="mdn_logo_only_color.png" height="200" width="200"/>
   // svgObject=document.getElementById("svg1");;
