@@ -15,13 +15,21 @@ var fNum = 6;
 var fSize;
 var turned = [null,null];
 var remaining = fNum*fNum;
-
+var moves;
+var movesPosition;
+var timer;
+var timerPosition;
+var fieldSize;
+var fontSize;
 
 function init() {
   var maxX=window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
   var maxY=window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight;
   var svgObject=document.getElementById("svg1");
-  var fieldSize=Math.max(maxX,maxY);  
+  
+  fieldSize=Math.max(maxX,maxY);
+  fontSize = fieldSize / 20;
+  
   if ( fieldSize == maxX) {
     landscape = true;
   } else {
@@ -29,14 +37,19 @@ function init() {
   }
   if ( landscape == true ) {
     fSize = (maxY - 5 * (fNum + 1))/fNum;
-    var xDelta = (maxX - (fNum*(fSize+5)+5))/2;
+    var xDelta = (maxX - (fNum*(fSize+5)+5))/4;
     var yDelta = 0;
+    movesPosition = [ fSize*fNum*2 , fontSize*2 ];
+    timerPosition = [ fSize*1.5 , fontSize*6 ];   
   } else {
     fSize = (maxX - 5 * (fNum + 1))/fNum;
-    var yDelta = (maxY - (fNum*(fSize+5)+5))/2;
+    var yDelta = (maxY - (fNum*(fSize+5)+5))/4;
     var xDelta = 0;
+    movesPosition = [ fontSize*3 , fSize * 1.5];
+    timerPosition = [ fontSize*3 , fSize * 1.5 + 2 * fonSize];
   }
-    
+
+  // Initialize svg
   for(var i=0; i<fNum; i++) {
     state[i] = [];
     for(var j=0; j<fNum; j++) {
@@ -52,11 +65,25 @@ function init() {
         svgObject.appendChild(newRect);
     }
   }
+  
+  newText = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+  newText.setAttribute("id","movesText");
+  newText.setAttribute("x",movesPosition[0]);
+  newText.setAttribute("y",movesPosition[1]);
+  newText.setAttribute("font-family","monospace");
+  newText.setAttribute("font-size",fontSize.toString());
+  svgObject.appendChild(newText);
+  var textNode = document.createTextNode("adsdsadaa");
+  newText.appendChild(textNode);
+  document.getElementById("movesText").appendChild(newText);
+
+  // Lay cards
   var cardCount = (fNum * fNum) / 2;
   while (cardCount > 0) {
      var newCard = false;
      while ( newCard == false ){
        var curCardNum = Math.floor(Math.random() * images.length);
+       var curCardName = images[curCardNum];
        if ( images[ curCardNum ] != "gone" ){ 
           console.log( images[ curCardNum ]);
           images[ curCardNum ] = "gone";
@@ -68,7 +95,7 @@ function init() {
         var xPos1 = Math.floor(Math.random() * fNum);
         var yPos1 = Math.floor(Math.random() * fNum);
         if ( state[xPos1][yPos1] == undefined ) {
-          state[xPos1][yPos1]={ num: curCardNum , state: "down" };
+          state[xPos1][yPos1]={ img: curCardName, state: "down" };
           laidOne = "true";
         }
      }
@@ -77,30 +104,24 @@ function init() {
         var xPos2 = Math.floor(Math.random() * fNum);
         var yPos2 = Math.floor(Math.random() * fNum);
         if ( state[xPos2][yPos2] == undefined ) {
-          state[xPos2][yPos2]={ num: curCardNum , state: "down" };
+          state[xPos2][yPos2]={ img: curCardName , state: "down" };
           laidTwo = "true";
         }
      }
      cardCount -= 1;
   }
-  // Math.floor(Math.random() * 11);
-  // images.length;
-
-
 }
 
 function onClick(evt){
   svgObject=document.getElementById("svg1");
   sqrId=evt.target.getAttribute("id");
   coords=sqrId.split("-");
-  // for(var i=0; i<coords.length; i++) { coords[i] = +coords[i]; }
-  console.log(coords);
+  
+  console.log(state);
   console.log(state[coords[0]][coords[1]]);
-  image=String(state[coords[0]][coords[1]].num).padStart(2, '0');
-  console.log(image);
-  //  <image href="mdn_logo_only_color.png" height="200" width="200"/>
-  // evt.target.setAttributeNS(null,"style","fill:red");
-  // evt.target.removeAttribute("style");
+  
+  image=state[coords[0]][coords[1]].img;
+  
   newElement = document.createElementNS('http://www.w3.org/2000/svg','image');
   newElement.setAttribute('href','/JB/'+image+'.jpg');
   newElement.setAttribute('id',"img-"+sqrId);
@@ -109,36 +130,7 @@ function onClick(evt){
   newElement.setAttribute('width',fSize);
   newElement.setAttribute('height',fSize);
   svgObject.appendChild(newElement);
-  // newElement = document.createElement('foreignObject');
-  // newElement.setAttribute('x',evt.target.getAttribute("x"));
-  // newElement.setAttribute('y',evt.target.getAttribute("y"));
-  // newElement.setAttribute('width',fSize);
-  // newElement.setAttribute('height',fSize);
-  // newElement.setAttribute('requiredExtensions','ihttp://example.com/SVGExtensions/EmbeddedXHTML');
-  // newElement.setAttributeNS(null,'id',"img-"+sqrId);
-  // svgObject.appendChild(newElement);
-  // imgObject=document.getElementById("img-"+sqrId);
-  // newElement2 = document.createElement('image');
-  // newElement2.setAttribute('src','/JB/02.jpg');
-  // imgObject.appendChild(newElement2);
   
-  // newElement.setAttributeNS(null,'x',evt.target.getAttribute("x"));
-  // newElement.setAttributeNS(null,'y',evt.target.getAttribute("y"));
-  // newElement.setAttributeNS(null,'width',fSize);
-  // newElement.setAttributeNS(null,'height',fSize);
-  svgObject.appendChild(newElement);
-
-  // <image href="mdn_logo_only_color.png" height="200" width="200"/>
-  // svgObject=document.getElementById("svg1");;
-  // sqr=svgObject.getElementById(sqrId);
-  // sqr.setAttributeNS(null,"style","fill:red");
-  // sqr.color="blue";
-  // svgObject=document.getElementById("svg1");
-  // svgObject.evt.target.setAttribute("color","red");
-  // window.card=document.getElementById(id);
-  // card.color="blue";
-  // console.log(card);
-  // console.log(evt.target);
-  // setTimeout(2000);
-  // console.log(sqrId);
 }
+
+// <text x="0" y="15" fill="red" font-family="monospace" font-size="30">I love SVG!</text>
