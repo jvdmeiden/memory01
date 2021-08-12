@@ -13,11 +13,14 @@ var images = ['01','02','03','04','05','06','07','08','09','10','11','12','13','
 var landscape;
 var fNum = 6;
 var fSize;
+var turned = [null,null];
+var remaining = fNum*fNum;
+
 
 function init() {
-  window.maxX=window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-  window.maxY=window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight;
-  window.svgObject=document.getElementById("svg1");
+  var maxX=window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  var maxY=window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight;
+  var svgObject=document.getElementById("svg1");
   var fieldSize=Math.max(maxX,maxY);  
   if ( fieldSize == maxX) {
     landscape = true;
