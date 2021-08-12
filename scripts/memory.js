@@ -11,7 +11,7 @@ notice is preserved.
 var state = [];
 var images = ['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59'];
 var landscape;
-var fNum = 8;
+var fNum = 6;
 var fSize;
 
 function init() {
@@ -90,19 +90,39 @@ function onClick(evt){
   svgObject=document.getElementById("svg1");
   sqrId=evt.target.getAttribute("id");
   coords=sqrId.split("-");
-  for(var i=0; i<coords.length; i++) { coords[i] = +coords[i]; }
+  // for(var i=0; i<coords.length; i++) { coords[i] = +coords[i]; }
   console.log(coords);
+  console.log(state[coords[0]][coords[1]]);
+  image=String(state[coords[0]][coords[1]].num).padStart(2, '0');
+  console.log(image);
   //  <image href="mdn_logo_only_color.png" height="200" width="200"/>
   // evt.target.setAttributeNS(null,"style","fill:red");
-  evt.target.removeAttribute("style");
-  newElement = document.createElementNS(null,'image');
-  // newElement.setAttribute('href','/JB/02.jpg');
-  newElement.setAttributeNS(null,'href',"http://192.168.50.220:8081/JB/02.jpg");
-  newElement.setAttributeNS(null,'id',"img-"+sqrId);
-  newElement.setAttributeNS(null,'x',evt.target.getAttribute("x"));
-  newElement.setAttributeNS(null,'y',evt.target.getAttribute("y"));
-  newElement.setAttributeNS(null,'width',fSize);
-  newElement.setAttributeNS(null,'height',fSize);
+  // evt.target.removeAttribute("style");
+  newElement = document.createElementNS('http://www.w3.org/2000/svg','image');
+  newElement.setAttribute('href','/JB/'+image+'.jpg');
+  newElement.setAttribute('id',"img-"+sqrId);
+  newElement.setAttribute('x',evt.target.getAttribute("x"));
+  newElement.setAttribute('y',evt.target.getAttribute("y"));
+  newElement.setAttribute('width',fSize);
+  newElement.setAttribute('height',fSize);
+  svgObject.appendChild(newElement);
+  // newElement = document.createElement('foreignObject');
+  // newElement.setAttribute('x',evt.target.getAttribute("x"));
+  // newElement.setAttribute('y',evt.target.getAttribute("y"));
+  // newElement.setAttribute('width',fSize);
+  // newElement.setAttribute('height',fSize);
+  // newElement.setAttribute('requiredExtensions','ihttp://example.com/SVGExtensions/EmbeddedXHTML');
+  // newElement.setAttributeNS(null,'id',"img-"+sqrId);
+  // svgObject.appendChild(newElement);
+  // imgObject=document.getElementById("img-"+sqrId);
+  // newElement2 = document.createElement('image');
+  // newElement2.setAttribute('src','/JB/02.jpg');
+  // imgObject.appendChild(newElement2);
+  
+  // newElement.setAttributeNS(null,'x',evt.target.getAttribute("x"));
+  // newElement.setAttributeNS(null,'y',evt.target.getAttribute("y"));
+  // newElement.setAttributeNS(null,'width',fSize);
+  // newElement.setAttributeNS(null,'height',fSize);
   svgObject.appendChild(newElement);
 
   // <image href="mdn_logo_only_color.png" height="200" width="200"/>
