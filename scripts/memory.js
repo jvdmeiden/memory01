@@ -35,18 +35,27 @@ function init() {
   } else {
     landscape = false;
   }
+//  if ( landscape == true ) {
+//    fSize = (maxY - 5 * (fNum + 1))/fNum;
+//    var xDelta = (maxX - (fNum*(fSize+5)+5))/4;
+//    var yDelta = 0;
+//    movesPosition = [ fSize*fNum*2 , fontSize*2 ];
+//    timerPosition = [ fSize*1.5 , fontSize*6 ];   
+//  } else {
+//    fSize = (maxX - 5 * (fNum + 1))/fNum;
+//    var yDelta = (maxY - (fNum*(fSize+5)+5))/4;
+//    var xDelta = 0;
+//    movesPosition = [ fontSize*3 , fSize * 1.5];
+//    timerPosition = [ fontSize*3 , fSize * 1.5 + 2 * fonSize];
+//  }
   if ( landscape == true ) {
     fSize = (maxY - 5 * (fNum + 1))/fNum;
-    var xDelta = (maxX - (fNum*(fSize+5)+5))/4;
+    var xDelta = (maxX - (fNum*(fSize+5)+5))/2;
     var yDelta = 0;
-    movesPosition = [ fSize*fNum*2 , fontSize*2 ];
-    timerPosition = [ fSize*1.5 , fontSize*6 ];   
   } else {
     fSize = (maxX - 5 * (fNum + 1))/fNum;
-    var yDelta = (maxY - (fNum*(fSize+5)+5))/4;
+    var yDelta = (maxY - (fNum*(fSize+5)+5))/2;
     var xDelta = 0;
-    movesPosition = [ fontSize*3 , fSize * 1.5];
-    timerPosition = [ fontSize*3 , fSize * 1.5 + 2 * fonSize];
   }
 
   // Initialize svg
@@ -66,16 +75,15 @@ function init() {
     }
   }
   
-  newText = document.createElementNS("http://www.w3.org/2000/svg", 'text');
-  newText.setAttribute("id","movesText");
-  newText.setAttribute("x",movesPosition[0]);
-  newText.setAttribute("y",movesPosition[1]);
-  newText.setAttribute("font-family","monospace");
-  newText.setAttribute("font-size",fontSize.toString());
-  svgObject.appendChild(newText);
-  var textNode = document.createTextNode("adsdsadaa");
-  newText.appendChild(textNode);
-  document.getElementById("movesText").appendChild(newText);
+  // newText = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+  // newText.setAttribute("id","movesText");
+  // newText.setAttribute("x",movesPosition[0]);
+  // newText.setAttribute("y",movesPosition[1]);
+  // newText.setAttribute("font-family","monospace");
+  // newText.setAttribute("font-size",fontSize.toString());
+  // svgObject.appendChild(newText);
+  // var textNode = document.createTextNode("adsdsadaa");
+  // newText.appendChild(textNode);
 
   // Lay cards
   var cardCount = (fNum * fNum) / 2;
